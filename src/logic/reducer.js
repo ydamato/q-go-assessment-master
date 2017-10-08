@@ -1,12 +1,10 @@
-import { ADD_ITEM, DELETE_ITEM, TOGGLE_ITEM_STATUS, TOGGLE_SHOW_COMPLETED } from './constants';
+import { ADD_ITEM, DELETE_ITEM, TOGGLE_ITEM_STATUS, TOGGLE_SHOW_COMPLETED, FETCH_TODOS_REQUEST_SUCCESS } from './constants';
 import _ from 'lodash'
-
-let nextId = 3;
 
 export const initialState = {
   items: [
     { id: 1, content: 'Make sure items are completeable', isCompleted: false },
-    { id: 2, content: 'Add filters (Use HOC)', isCompleted: false },
+    { id: 2, content: 'Add filters (Use HOC)', isCompleted: false }
   ],
   showOnlyCompleted: false
 };
@@ -15,7 +13,7 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_ITEM:
       const newItem = {
-        id: nextId++,
+        id: state.items.length + 1,
         content: action.content,
         isCompleted: false
       };
@@ -52,6 +50,13 @@ const reducer = (state = initialState, action) => {
           showOnlyCompleted: !state.showOnlyCompleted
         }
       );
+
+      case FETCH_TODOS_REQUEST_SUCCESS:
+      const { items } = action
+      return {
+        ...state,
+        items
+      }
 
     default:
       return state;

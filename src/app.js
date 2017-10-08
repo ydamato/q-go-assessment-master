@@ -5,9 +5,12 @@ import Header from './components/Header';
 import ItemCreator from './components/ItemCreator';
 import ItemsList from './components/ItemsList';
 import ItemsFilter from './components/ItemsFilter';
+import ItemsImport from './components/ItemsImport';
+import fetchTodosSaga from './sagas/sagas'
 import './app.css';
 
 const store = configureStore();
+store.runSaga(fetchTodosSaga);
 
 class App extends Component {
   render() {
@@ -18,6 +21,7 @@ class App extends Component {
           <div>
             <ItemCreator />
             <ItemsFilter />
+            <ItemsImport />
             <ItemsList />
           </div>
         </div>
